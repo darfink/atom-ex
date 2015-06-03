@@ -35,7 +35,7 @@ endif()
 # CPM Modules
 #------------------------------------------------------------------------------
 
-CPM_AddModule("AtomUnicode"
+CPM_AddModule("atom-unicode"
   GIT_REPOSITORY "https://github.com/darfink/atom-unicode.git"
   GIT_TAG "master")
 
