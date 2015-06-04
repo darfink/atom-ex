@@ -48,13 +48,15 @@ CPM_InitModule(${CPM_MODULE_NAME})
 
 set(FILE_DIR "${CMAKE_CURRENT_LIST_DIR}/atom-ex")
 set(ModuleSources "${FILE_DIR}/src/Exception.cpp")
-set(ModuleHeaders "${FILE_DIR}/SystemException.hpp")
-set(ModuleHeaders "${FILE_DIR}/Exception.hpp")
+set(ModuleHeaders
+  "${FILE_DIR}/SystemException.hpp"
+  "${FILE_DIR}/Exception.hpp")
 
 if(WIN32)
   list(APPEND ModuleHeaders "${FILE_DIR}/WindowsException.hpp")
-  list(APPEND ModuleSources "${FILE_DIR}/src/windows/WindowsException.cpp")
-  list(APPEND ModuleSources "${FILE_DIR}/src/windows/SystemException.cpp")
+  list(APPEND ModuleSources
+    "${FILE_DIR}/src/windows/WindowsException.cpp"
+    "${FILE_DIR}/src/windows/SystemException.cpp")
 else()
   list(APPEND ModuleSources "${FILE_DIR}/src/linux/SystemException.cpp")
 endif()
