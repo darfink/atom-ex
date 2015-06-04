@@ -1,43 +1,43 @@
 #pragma once
 
 #include <atom-ex/Exception.hpp>
-#include <windows.h>
 #include <cassert>
+#include <cerrno>
 
 /// <summary>
-/// Asserts a Windows API call and throws upon failure
+/// Asserts a System API call and throws upon failure
 /// </summary>
-#define ATOM_WINDOWS_ASSERT(COND)                         \
+#define ATOM_SYSTEM_ASSERT(COND)                          \
   do {                                                    \
     if(!(COND)) {                                         \
-      throw atom::WindowsException(ATOM_EXCEPTION_INFO);  \
+      throw atom::SystemException(ATOM_EXCEPTION_INFO);   \
     }                                                     \
   } while(false)
 
 namespace atom {
   /// <summary>
-  /// Describes a windows (Win32) API exception
+  /// Describes a system (errno) exception
   /// </summary>
-  class WindowsException : public Exception {
+  class SystemException : public Exception {
   public:
-    WindowsException(Information info, int code = GetLastError()) :
+    SystemException(Information info, int code = errno) :
       Exception(info, GetErrorCodeString(code), code) { }
 
-    WindowsException(
+    SystemException(
       Information info,
       const Exception& nested,
-      int code = GetLastError()) :
+      int code = errno) :
       Exception(info, GetErrorCodeString(code), nested, code) {
     }
 
     virtual const char* Name() const {
-      return "WindowsException";
+      return "SystemException";
     }
 
-    virtual WindowsException* Clone() const {
-      return new WindowsException(*this);
+    virtual SystemException* Clone() const {
+      return new SystemException(*this);
     }
 
-    static std::string GetErrorCodeString(unsigned int code);
+    static std::string GetErrorCodeString(int code);
   };
 }
